@@ -1,6 +1,7 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+@import "leaflet/dist/leaflet.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -62,26 +63,35 @@
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --radius: 1rem;
+  /* Dark neon command-center theme — applied as default */
+  --background: oklch(0.15 0.04 265);
+  --foreground: oklch(0.97 0.01 240);
+  --card: oklch(0.22 0.04 260 / 50%);
+  --card-foreground: oklch(0.97 0.01 240);
+  --popover: oklch(0.18 0.04 265);
+  --popover-foreground: oklch(0.97 0.01 240);
+  --primary: oklch(0.78 0.15 230);
+  --primary-foreground: oklch(0.15 0.04 265);
+  --secondary: oklch(0.65 0.22 295);
+  --secondary-foreground: oklch(0.97 0.01 240);
+  --muted: oklch(0.28 0.03 260);
+  --muted-foreground: oklch(0.72 0.03 250);
+  --accent: oklch(0.65 0.22 295);
+  --accent-foreground: oklch(0.97 0.01 240);
+  --destructive: oklch(0.65 0.25 25);
+  --destructive-foreground: oklch(0.98 0.01 240);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.78 0.15 230);
+  --neon-blue: oklch(0.78 0.15 230);
+  --neon-purple: oklch(0.65 0.22 295);
+  --neon-green: oklch(0.78 0.18 155);
+  --neon-yellow: oklch(0.85 0.17 90);
+  --neon-red: oklch(0.7 0.24 25);
+  --gradient-bg: linear-gradient(135deg, oklch(0.12 0.04 265) 0%, oklch(0.18 0.05 260) 100%);
+  --shadow-glow-blue: 0 0 20px oklch(0.78 0.15 230 / 60%);
+  --shadow-glow-purple: 0 0 20px oklch(0.65 0.22 295 / 60%);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -132,13 +142,79 @@
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
+@theme inline {
+  --color-neon-blue: var(--neon-blue);
+  --color-neon-purple: var(--neon-purple);
+  --color-neon-green: var(--neon-green);
+  --color-neon-yellow: var(--neon-yellow);
+  --color-neon-red: var(--neon-red);
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
   }
 
+  html, body, #root {
+    min-height: 100vh;
+  }
+
   body {
-    background-color: var(--color-background);
+    background: var(--gradient-bg);
+    background-attachment: fixed;
     color: var(--color-foreground);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   }
 }
+
+@layer utilities {
+  .glass {
+    background-color: oklch(1 0 0 / 5%);
+    backdrop-filter: blur(16px);
+    border: 1px solid oklch(1 0 0 / 10%);
+  }
+  .glow-blue { box-shadow: var(--shadow-glow-blue); }
+  .glow-purple { box-shadow: var(--shadow-glow-purple); }
+  .hover-glow-blue { transition: all 0.3s ease; }
+  .hover-glow-blue:hover { box-shadow: var(--shadow-glow-blue); transform: translateY(-2px); }
+  .hover-glow-purple { transition: all 0.3s ease; }
+  .hover-glow-purple:hover { box-shadow: var(--shadow-glow-purple); transform: translateY(-2px); }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.incident-marker {
+  position: relative;
+}
+.incident-marker::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: var(--neon-red);
+  animation: pulse-ring 1.6s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+/* Leaflet overrides for dark theme */
+.leaflet-container {
+  background: oklch(0.18 0.04 265);
+  font-family: inherit;
+}
+.leaflet-tile { filter: brightness(0.6) invert(1) contrast(0.9) hue-rotate(180deg) saturate(0.4) brightness(0.85); }
+.leaflet-control-zoom a {
+  background: oklch(0.22 0.04 260) !important;
+  color: oklch(0.97 0.01 240) !important;
+  border-color: oklch(1 0 0 / 10%) !important;
+}
+.leaflet-control-attribution {
+  background: oklch(0.18 0.04 265 / 70%) !important;
+  color: oklch(0.72 0.03 250) !important;
+}
+.leaflet-control-attribution a { color: var(--neon-blue) !important; }
