@@ -9,24 +9,30 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as HospitalRouteImport } from './routes/hospital'
-import { Route as DriverRouteImport } from './routes/driver'
-import { Route as CitizenRouteImport } from './routes/citizen'
+import { Route as TrackerRouteImport } from './routes/tracker'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as PredictRouteImport } from './routes/predict'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
 
-const HospitalRoute = HospitalRouteImport.update({
-  id: '/hospital',
-  path: '/hospital',
+const TrackerRoute = TrackerRouteImport.update({
+  id: '/tracker',
+  path: '/tracker',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DriverRoute = DriverRouteImport.update({
-  id: '/driver',
-  path: '/driver',
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CitizenRoute = CitizenRouteImport.update({
-  id: '/citizen',
-  path: '/citizen',
+const PredictRoute = PredictRouteImport.update({
+  id: '/predict',
+  path: '/predict',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -37,59 +43,70 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/citizen': typeof CitizenRoute
-  '/driver': typeof DriverRoute
-  '/hospital': typeof HospitalRoute
+  '/dashboard': typeof DashboardRoute
+  '/predict': typeof PredictRoute
+  '/profile': typeof ProfileRoute
+  '/tracker': typeof TrackerRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/citizen': typeof CitizenRoute
-  '/driver': typeof DriverRoute
-  '/hospital': typeof HospitalRoute
+  '/dashboard': typeof DashboardRoute
+  '/predict': typeof PredictRoute
+  '/profile': typeof ProfileRoute
+  '/tracker': typeof TrackerRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/citizen': typeof CitizenRoute
-  '/driver': typeof DriverRoute
-  '/hospital': typeof HospitalRoute
+  '/dashboard': typeof DashboardRoute
+  '/predict': typeof PredictRoute
+  '/profile': typeof ProfileRoute
+  '/tracker': typeof TrackerRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/citizen' | '/driver' | '/hospital'
+  fullPaths: '/' | '/dashboard' | '/predict' | '/profile' | '/tracker'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/citizen' | '/driver' | '/hospital'
-  id: '__root__' | '/' | '/citizen' | '/driver' | '/hospital'
+  to: '/' | '/dashboard' | '/predict' | '/profile' | '/tracker'
+  id: '__root__' | '/' | '/dashboard' | '/predict' | '/profile' | '/tracker'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CitizenRoute: typeof CitizenRoute
-  DriverRoute: typeof DriverRoute
-  HospitalRoute: typeof HospitalRoute
+  DashboardRoute: typeof DashboardRoute
+  PredictRoute: typeof PredictRoute
+  ProfileRoute: typeof ProfileRoute
+  TrackerRoute: typeof TrackerRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/hospital': {
-      id: '/hospital'
-      path: '/hospital'
-      fullPath: '/hospital'
-      preLoaderRoute: typeof HospitalRouteImport
+    '/tracker': {
+      id: '/tracker'
+      path: '/tracker'
+      fullPath: '/tracker'
+      preLoaderRoute: typeof TrackerRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/driver': {
-      id: '/driver'
-      path: '/driver'
-      fullPath: '/driver'
-      preLoaderRoute: typeof DriverRouteImport
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/citizen': {
-      id: '/citizen'
-      path: '/citizen'
-      fullPath: '/citizen'
-      preLoaderRoute: typeof CitizenRouteImport
+    '/predict': {
+      id: '/predict'
+      path: '/predict'
+      fullPath: '/predict'
+      preLoaderRoute: typeof PredictRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -104,9 +121,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CitizenRoute: CitizenRoute,
-  DriverRoute: DriverRoute,
-  HospitalRoute: HospitalRoute,
+  DashboardRoute: DashboardRoute,
+  PredictRoute: PredictRoute,
+  ProfileRoute: ProfileRoute,
+  TrackerRoute: TrackerRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
