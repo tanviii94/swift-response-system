@@ -9,11 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TwinRouteImport } from './routes/twin'
 import { Route as SimulatorRouteImport } from './routes/simulator'
 import { Route as RadarRouteImport } from './routes/radar'
 import { Route as CommanderRouteImport } from './routes/commander'
 import { Route as IndexRouteImport } from './routes/index'
 
+const TwinRoute = TwinRouteImport.update({
+  id: '/twin',
+  path: '/twin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SimulatorRoute = SimulatorRouteImport.update({
   id: '/simulator',
   path: '/simulator',
@@ -40,12 +46,14 @@ export interface FileRoutesByFullPath {
   '/commander': typeof CommanderRoute
   '/radar': typeof RadarRoute
   '/simulator': typeof SimulatorRoute
+  '/twin': typeof TwinRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/commander': typeof CommanderRoute
   '/radar': typeof RadarRoute
   '/simulator': typeof SimulatorRoute
+  '/twin': typeof TwinRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,14 @@ export interface FileRoutesById {
   '/commander': typeof CommanderRoute
   '/radar': typeof RadarRoute
   '/simulator': typeof SimulatorRoute
+  '/twin': typeof TwinRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/commander' | '/radar' | '/simulator'
+  fullPaths: '/' | '/commander' | '/radar' | '/simulator' | '/twin'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/commander' | '/radar' | '/simulator'
-  id: '__root__' | '/' | '/commander' | '/radar' | '/simulator'
+  to: '/' | '/commander' | '/radar' | '/simulator' | '/twin'
+  id: '__root__' | '/' | '/commander' | '/radar' | '/simulator' | '/twin'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,10 +76,18 @@ export interface RootRouteChildren {
   CommanderRoute: typeof CommanderRoute
   RadarRoute: typeof RadarRoute
   SimulatorRoute: typeof SimulatorRoute
+  TwinRoute: typeof TwinRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/twin': {
+      id: '/twin'
+      path: '/twin'
+      fullPath: '/twin'
+      preLoaderRoute: typeof TwinRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/simulator': {
       id: '/simulator'
       path: '/simulator'
@@ -107,6 +124,7 @@ const rootRouteChildren: RootRouteChildren = {
   CommanderRoute: CommanderRoute,
   RadarRoute: RadarRoute,
   SimulatorRoute: SimulatorRoute,
+  TwinRoute: TwinRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
