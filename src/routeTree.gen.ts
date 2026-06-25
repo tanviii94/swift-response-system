@@ -9,8 +9,62 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TwinRouteImport } from './routes/twin'
+import { Route as TimelineRouteImport } from './routes/timeline'
+import { Route as SimulatorRouteImport } from './routes/simulator'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as ReserveRouteImport } from './routes/reserve'
+import { Route as RadarRouteImport } from './routes/radar'
+import { Route as EconomyRouteImport } from './routes/economy'
+import { Route as CopilotRouteImport } from './routes/copilot'
+import { Route as CommanderRouteImport } from './routes/commander'
 import { Route as IndexRouteImport } from './routes/index'
 
+const TwinRoute = TwinRouteImport.update({
+  id: '/twin',
+  path: '/twin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TimelineRoute = TimelineRouteImport.update({
+  id: '/timeline',
+  path: '/timeline',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SimulatorRoute = SimulatorRouteImport.update({
+  id: '/simulator',
+  path: '/simulator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReserveRoute = ReserveRouteImport.update({
+  id: '/reserve',
+  path: '/reserve',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RadarRoute = RadarRouteImport.update({
+  id: '/radar',
+  path: '/radar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EconomyRoute = EconomyRouteImport.update({
+  id: '/economy',
+  path: '/economy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CopilotRoute = CopilotRouteImport.update({
+  id: '/copilot',
+  path: '/copilot',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommanderRoute = CommanderRouteImport.update({
+  id: '/commander',
+  path: '/commander',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +73,158 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/commander': typeof CommanderRoute
+  '/copilot': typeof CopilotRoute
+  '/economy': typeof EconomyRoute
+  '/radar': typeof RadarRoute
+  '/reserve': typeof ReserveRoute
+  '/settings': typeof SettingsRoute
+  '/simulator': typeof SimulatorRoute
+  '/timeline': typeof TimelineRoute
+  '/twin': typeof TwinRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/commander': typeof CommanderRoute
+  '/copilot': typeof CopilotRoute
+  '/economy': typeof EconomyRoute
+  '/radar': typeof RadarRoute
+  '/reserve': typeof ReserveRoute
+  '/settings': typeof SettingsRoute
+  '/simulator': typeof SimulatorRoute
+  '/timeline': typeof TimelineRoute
+  '/twin': typeof TwinRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/commander': typeof CommanderRoute
+  '/copilot': typeof CopilotRoute
+  '/economy': typeof EconomyRoute
+  '/radar': typeof RadarRoute
+  '/reserve': typeof ReserveRoute
+  '/settings': typeof SettingsRoute
+  '/simulator': typeof SimulatorRoute
+  '/timeline': typeof TimelineRoute
+  '/twin': typeof TwinRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/commander'
+    | '/copilot'
+    | '/economy'
+    | '/radar'
+    | '/reserve'
+    | '/settings'
+    | '/simulator'
+    | '/timeline'
+    | '/twin'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/commander'
+    | '/copilot'
+    | '/economy'
+    | '/radar'
+    | '/reserve'
+    | '/settings'
+    | '/simulator'
+    | '/timeline'
+    | '/twin'
+  id:
+    | '__root__'
+    | '/'
+    | '/commander'
+    | '/copilot'
+    | '/economy'
+    | '/radar'
+    | '/reserve'
+    | '/settings'
+    | '/simulator'
+    | '/timeline'
+    | '/twin'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CommanderRoute: typeof CommanderRoute
+  CopilotRoute: typeof CopilotRoute
+  EconomyRoute: typeof EconomyRoute
+  RadarRoute: typeof RadarRoute
+  ReserveRoute: typeof ReserveRoute
+  SettingsRoute: typeof SettingsRoute
+  SimulatorRoute: typeof SimulatorRoute
+  TimelineRoute: typeof TimelineRoute
+  TwinRoute: typeof TwinRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/twin': {
+      id: '/twin'
+      path: '/twin'
+      fullPath: '/twin'
+      preLoaderRoute: typeof TwinRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/timeline': {
+      id: '/timeline'
+      path: '/timeline'
+      fullPath: '/timeline'
+      preLoaderRoute: typeof TimelineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/simulator': {
+      id: '/simulator'
+      path: '/simulator'
+      fullPath: '/simulator'
+      preLoaderRoute: typeof SimulatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reserve': {
+      id: '/reserve'
+      path: '/reserve'
+      fullPath: '/reserve'
+      preLoaderRoute: typeof ReserveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/radar': {
+      id: '/radar'
+      path: '/radar'
+      fullPath: '/radar'
+      preLoaderRoute: typeof RadarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/economy': {
+      id: '/economy'
+      path: '/economy'
+      fullPath: '/economy'
+      preLoaderRoute: typeof EconomyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/copilot': {
+      id: '/copilot'
+      path: '/copilot'
+      fullPath: '/copilot'
+      preLoaderRoute: typeof CopilotRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/commander': {
+      id: '/commander'
+      path: '/commander'
+      fullPath: '/commander'
+      preLoaderRoute: typeof CommanderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +237,15 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CommanderRoute: CommanderRoute,
+  CopilotRoute: CopilotRoute,
+  EconomyRoute: EconomyRoute,
+  RadarRoute: RadarRoute,
+  ReserveRoute: ReserveRoute,
+  SettingsRoute: SettingsRoute,
+  SimulatorRoute: SimulatorRoute,
+  TimelineRoute: TimelineRoute,
+  TwinRoute: TwinRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

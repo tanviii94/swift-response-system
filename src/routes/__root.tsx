@@ -1,5 +1,7 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { Toaster } from "@/components/ui/sonner";
+import { AppShell } from "@/components/AppShell";
+
 
 import appCss from "../styles.css?url";
 
@@ -30,14 +32,14 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "AEGIS AI — Energy Crisis Command Center" },
+      { name: "description", content: "National-grade AI command center for energy security, geopolitical risk, and crisis response." },
+      { name: "author", content: "AEGIS" },
+      { property: "og:title", content: "AEGIS AI — Energy Command" },
+      { property: "og:description", content: "AI war room for energy security decisions." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:site", content: "@aegis" },
     ],
     links: [
       {
@@ -68,8 +70,8 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   return (
     <>
-      <Outlet />
-      <Toaster richColors position="top-right" />
+      <AppShell />
+      <Toaster richColors position="top-right" theme="dark" />
     </>
   );
 }
