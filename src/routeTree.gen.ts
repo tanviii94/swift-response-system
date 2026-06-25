@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TwinRouteImport } from './routes/twin'
+import { Route as TimelineRouteImport } from './routes/timeline'
 import { Route as SimulatorRouteImport } from './routes/simulator'
 import { Route as ReserveRouteImport } from './routes/reserve'
 import { Route as RadarRouteImport } from './routes/radar'
@@ -20,6 +21,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const TwinRoute = TwinRouteImport.update({
   id: '/twin',
   path: '/twin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TimelineRoute = TimelineRouteImport.update({
+  id: '/timeline',
+  path: '/timeline',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SimulatorRoute = SimulatorRouteImport.update({
@@ -60,6 +66,7 @@ export interface FileRoutesByFullPath {
   '/radar': typeof RadarRoute
   '/reserve': typeof ReserveRoute
   '/simulator': typeof SimulatorRoute
+  '/timeline': typeof TimelineRoute
   '/twin': typeof TwinRoute
 }
 export interface FileRoutesByTo {
@@ -69,6 +76,7 @@ export interface FileRoutesByTo {
   '/radar': typeof RadarRoute
   '/reserve': typeof ReserveRoute
   '/simulator': typeof SimulatorRoute
+  '/timeline': typeof TimelineRoute
   '/twin': typeof TwinRoute
 }
 export interface FileRoutesById {
@@ -79,6 +87,7 @@ export interface FileRoutesById {
   '/radar': typeof RadarRoute
   '/reserve': typeof ReserveRoute
   '/simulator': typeof SimulatorRoute
+  '/timeline': typeof TimelineRoute
   '/twin': typeof TwinRoute
 }
 export interface FileRouteTypes {
@@ -90,6 +99,7 @@ export interface FileRouteTypes {
     | '/radar'
     | '/reserve'
     | '/simulator'
+    | '/timeline'
     | '/twin'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -99,6 +109,7 @@ export interface FileRouteTypes {
     | '/radar'
     | '/reserve'
     | '/simulator'
+    | '/timeline'
     | '/twin'
   id:
     | '__root__'
@@ -108,6 +119,7 @@ export interface FileRouteTypes {
     | '/radar'
     | '/reserve'
     | '/simulator'
+    | '/timeline'
     | '/twin'
   fileRoutesById: FileRoutesById
 }
@@ -118,6 +130,7 @@ export interface RootRouteChildren {
   RadarRoute: typeof RadarRoute
   ReserveRoute: typeof ReserveRoute
   SimulatorRoute: typeof SimulatorRoute
+  TimelineRoute: typeof TimelineRoute
   TwinRoute: typeof TwinRoute
 }
 
@@ -128,6 +141,13 @@ declare module '@tanstack/react-router' {
       path: '/twin'
       fullPath: '/twin'
       preLoaderRoute: typeof TwinRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/timeline': {
+      id: '/timeline'
+      path: '/timeline'
+      fullPath: '/timeline'
+      preLoaderRoute: typeof TimelineRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/simulator': {
@@ -182,6 +202,7 @@ const rootRouteChildren: RootRouteChildren = {
   RadarRoute: RadarRoute,
   ReserveRoute: ReserveRoute,
   SimulatorRoute: SimulatorRoute,
+  TimelineRoute: TimelineRoute,
   TwinRoute: TwinRoute,
 }
 export const routeTree = rootRouteImport
