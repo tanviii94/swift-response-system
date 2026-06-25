@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { useAegis } from "@/lib/aegis";
 
 const india =
