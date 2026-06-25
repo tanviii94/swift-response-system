@@ -70,8 +70,8 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   return (
     <>
-      <Outlet />
-      <Toaster richColors position="top-right" />
+      <AppShell />
+      <Toaster richColors position="top-right" theme="dark" />
     </>
   );
 }
