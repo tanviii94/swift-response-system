@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TwinRouteImport } from './routes/twin'
 import { Route as SimulatorRouteImport } from './routes/simulator'
+import { Route as ReserveRouteImport } from './routes/reserve'
 import { Route as RadarRouteImport } from './routes/radar'
 import { Route as CommanderRouteImport } from './routes/commander'
 import { Route as IndexRouteImport } from './routes/index'
@@ -23,6 +24,11 @@ const TwinRoute = TwinRouteImport.update({
 const SimulatorRoute = SimulatorRouteImport.update({
   id: '/simulator',
   path: '/simulator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReserveRoute = ReserveRouteImport.update({
+  id: '/reserve',
+  path: '/reserve',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RadarRoute = RadarRouteImport.update({
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/commander': typeof CommanderRoute
   '/radar': typeof RadarRoute
+  '/reserve': typeof ReserveRoute
   '/simulator': typeof SimulatorRoute
   '/twin': typeof TwinRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/commander': typeof CommanderRoute
   '/radar': typeof RadarRoute
+  '/reserve': typeof ReserveRoute
   '/simulator': typeof SimulatorRoute
   '/twin': typeof TwinRoute
 }
@@ -60,21 +68,30 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/commander': typeof CommanderRoute
   '/radar': typeof RadarRoute
+  '/reserve': typeof ReserveRoute
   '/simulator': typeof SimulatorRoute
   '/twin': typeof TwinRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/commander' | '/radar' | '/simulator' | '/twin'
+  fullPaths: '/' | '/commander' | '/radar' | '/reserve' | '/simulator' | '/twin'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/commander' | '/radar' | '/simulator' | '/twin'
-  id: '__root__' | '/' | '/commander' | '/radar' | '/simulator' | '/twin'
+  to: '/' | '/commander' | '/radar' | '/reserve' | '/simulator' | '/twin'
+  id:
+    | '__root__'
+    | '/'
+    | '/commander'
+    | '/radar'
+    | '/reserve'
+    | '/simulator'
+    | '/twin'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CommanderRoute: typeof CommanderRoute
   RadarRoute: typeof RadarRoute
+  ReserveRoute: typeof ReserveRoute
   SimulatorRoute: typeof SimulatorRoute
   TwinRoute: typeof TwinRoute
 }
@@ -93,6 +110,13 @@ declare module '@tanstack/react-router' {
       path: '/simulator'
       fullPath: '/simulator'
       preLoaderRoute: typeof SimulatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reserve': {
+      id: '/reserve'
+      path: '/reserve'
+      fullPath: '/reserve'
+      preLoaderRoute: typeof ReserveRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/radar': {
@@ -123,6 +147,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CommanderRoute: CommanderRoute,
   RadarRoute: RadarRoute,
+  ReserveRoute: ReserveRoute,
   SimulatorRoute: SimulatorRoute,
   TwinRoute: TwinRoute,
 }
