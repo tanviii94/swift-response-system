@@ -13,6 +13,7 @@ import { Route as TwinRouteImport } from './routes/twin'
 import { Route as SimulatorRouteImport } from './routes/simulator'
 import { Route as ReserveRouteImport } from './routes/reserve'
 import { Route as RadarRouteImport } from './routes/radar'
+import { Route as EconomyRouteImport } from './routes/economy'
 import { Route as CommanderRouteImport } from './routes/commander'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -36,6 +37,11 @@ const RadarRoute = RadarRouteImport.update({
   path: '/radar',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EconomyRoute = EconomyRouteImport.update({
+  id: '/economy',
+  path: '/economy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CommanderRoute = CommanderRouteImport.update({
   id: '/commander',
   path: '/commander',
@@ -50,6 +56,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/commander': typeof CommanderRoute
+  '/economy': typeof EconomyRoute
   '/radar': typeof RadarRoute
   '/reserve': typeof ReserveRoute
   '/simulator': typeof SimulatorRoute
@@ -58,6 +65,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/commander': typeof CommanderRoute
+  '/economy': typeof EconomyRoute
   '/radar': typeof RadarRoute
   '/reserve': typeof ReserveRoute
   '/simulator': typeof SimulatorRoute
@@ -67,6 +75,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/commander': typeof CommanderRoute
+  '/economy': typeof EconomyRoute
   '/radar': typeof RadarRoute
   '/reserve': typeof ReserveRoute
   '/simulator': typeof SimulatorRoute
@@ -74,13 +83,28 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/commander' | '/radar' | '/reserve' | '/simulator' | '/twin'
+  fullPaths:
+    | '/'
+    | '/commander'
+    | '/economy'
+    | '/radar'
+    | '/reserve'
+    | '/simulator'
+    | '/twin'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/commander' | '/radar' | '/reserve' | '/simulator' | '/twin'
+  to:
+    | '/'
+    | '/commander'
+    | '/economy'
+    | '/radar'
+    | '/reserve'
+    | '/simulator'
+    | '/twin'
   id:
     | '__root__'
     | '/'
     | '/commander'
+    | '/economy'
     | '/radar'
     | '/reserve'
     | '/simulator'
@@ -90,6 +114,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CommanderRoute: typeof CommanderRoute
+  EconomyRoute: typeof EconomyRoute
   RadarRoute: typeof RadarRoute
   ReserveRoute: typeof ReserveRoute
   SimulatorRoute: typeof SimulatorRoute
@@ -126,6 +151,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RadarRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/economy': {
+      id: '/economy'
+      path: '/economy'
+      fullPath: '/economy'
+      preLoaderRoute: typeof EconomyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/commander': {
       id: '/commander'
       path: '/commander'
@@ -146,6 +178,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CommanderRoute: CommanderRoute,
+  EconomyRoute: EconomyRoute,
   RadarRoute: RadarRoute,
   ReserveRoute: ReserveRoute,
   SimulatorRoute: SimulatorRoute,
