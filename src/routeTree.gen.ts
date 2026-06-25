@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TwinRouteImport } from './routes/twin'
 import { Route as TimelineRouteImport } from './routes/timeline'
 import { Route as SimulatorRouteImport } from './routes/simulator'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ReserveRouteImport } from './routes/reserve'
 import { Route as RadarRouteImport } from './routes/radar'
 import { Route as EconomyRouteImport } from './routes/economy'
@@ -32,6 +33,11 @@ const TimelineRoute = TimelineRouteImport.update({
 const SimulatorRoute = SimulatorRouteImport.update({
   id: '/simulator',
   path: '/simulator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReserveRoute = ReserveRouteImport.update({
@@ -72,6 +78,7 @@ export interface FileRoutesByFullPath {
   '/economy': typeof EconomyRoute
   '/radar': typeof RadarRoute
   '/reserve': typeof ReserveRoute
+  '/settings': typeof SettingsRoute
   '/simulator': typeof SimulatorRoute
   '/timeline': typeof TimelineRoute
   '/twin': typeof TwinRoute
@@ -83,6 +90,7 @@ export interface FileRoutesByTo {
   '/economy': typeof EconomyRoute
   '/radar': typeof RadarRoute
   '/reserve': typeof ReserveRoute
+  '/settings': typeof SettingsRoute
   '/simulator': typeof SimulatorRoute
   '/timeline': typeof TimelineRoute
   '/twin': typeof TwinRoute
@@ -95,6 +103,7 @@ export interface FileRoutesById {
   '/economy': typeof EconomyRoute
   '/radar': typeof RadarRoute
   '/reserve': typeof ReserveRoute
+  '/settings': typeof SettingsRoute
   '/simulator': typeof SimulatorRoute
   '/timeline': typeof TimelineRoute
   '/twin': typeof TwinRoute
@@ -108,6 +117,7 @@ export interface FileRouteTypes {
     | '/economy'
     | '/radar'
     | '/reserve'
+    | '/settings'
     | '/simulator'
     | '/timeline'
     | '/twin'
@@ -119,6 +129,7 @@ export interface FileRouteTypes {
     | '/economy'
     | '/radar'
     | '/reserve'
+    | '/settings'
     | '/simulator'
     | '/timeline'
     | '/twin'
@@ -130,6 +141,7 @@ export interface FileRouteTypes {
     | '/economy'
     | '/radar'
     | '/reserve'
+    | '/settings'
     | '/simulator'
     | '/timeline'
     | '/twin'
@@ -142,6 +154,7 @@ export interface RootRouteChildren {
   EconomyRoute: typeof EconomyRoute
   RadarRoute: typeof RadarRoute
   ReserveRoute: typeof ReserveRoute
+  SettingsRoute: typeof SettingsRoute
   SimulatorRoute: typeof SimulatorRoute
   TimelineRoute: typeof TimelineRoute
   TwinRoute: typeof TwinRoute
@@ -168,6 +181,13 @@ declare module '@tanstack/react-router' {
       path: '/simulator'
       fullPath: '/simulator'
       preLoaderRoute: typeof SimulatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reserve': {
@@ -222,6 +242,7 @@ const rootRouteChildren: RootRouteChildren = {
   EconomyRoute: EconomyRoute,
   RadarRoute: RadarRoute,
   ReserveRoute: ReserveRoute,
+  SettingsRoute: SettingsRoute,
   SimulatorRoute: SimulatorRoute,
   TimelineRoute: TimelineRoute,
   TwinRoute: TwinRoute,
