@@ -15,6 +15,7 @@ import { Route as SimulatorRouteImport } from './routes/simulator'
 import { Route as ReserveRouteImport } from './routes/reserve'
 import { Route as RadarRouteImport } from './routes/radar'
 import { Route as EconomyRouteImport } from './routes/economy'
+import { Route as CopilotRouteImport } from './routes/copilot'
 import { Route as CommanderRouteImport } from './routes/commander'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -48,6 +49,11 @@ const EconomyRoute = EconomyRouteImport.update({
   path: '/economy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CopilotRoute = CopilotRouteImport.update({
+  id: '/copilot',
+  path: '/copilot',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CommanderRoute = CommanderRouteImport.update({
   id: '/commander',
   path: '/commander',
@@ -62,6 +68,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/commander': typeof CommanderRoute
+  '/copilot': typeof CopilotRoute
   '/economy': typeof EconomyRoute
   '/radar': typeof RadarRoute
   '/reserve': typeof ReserveRoute
@@ -72,6 +79,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/commander': typeof CommanderRoute
+  '/copilot': typeof CopilotRoute
   '/economy': typeof EconomyRoute
   '/radar': typeof RadarRoute
   '/reserve': typeof ReserveRoute
@@ -83,6 +91,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/commander': typeof CommanderRoute
+  '/copilot': typeof CopilotRoute
   '/economy': typeof EconomyRoute
   '/radar': typeof RadarRoute
   '/reserve': typeof ReserveRoute
@@ -95,6 +104,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/commander'
+    | '/copilot'
     | '/economy'
     | '/radar'
     | '/reserve'
@@ -105,6 +115,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/commander'
+    | '/copilot'
     | '/economy'
     | '/radar'
     | '/reserve'
@@ -115,6 +126,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/commander'
+    | '/copilot'
     | '/economy'
     | '/radar'
     | '/reserve'
@@ -126,6 +138,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CommanderRoute: typeof CommanderRoute
+  CopilotRoute: typeof CopilotRoute
   EconomyRoute: typeof EconomyRoute
   RadarRoute: typeof RadarRoute
   ReserveRoute: typeof ReserveRoute
@@ -178,6 +191,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EconomyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/copilot': {
+      id: '/copilot'
+      path: '/copilot'
+      fullPath: '/copilot'
+      preLoaderRoute: typeof CopilotRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/commander': {
       id: '/commander'
       path: '/commander'
@@ -198,6 +218,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CommanderRoute: CommanderRoute,
+  CopilotRoute: CopilotRoute,
   EconomyRoute: EconomyRoute,
   RadarRoute: RadarRoute,
   ReserveRoute: ReserveRoute,
